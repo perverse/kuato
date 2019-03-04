@@ -1,0 +1,13 @@
+{
+    "name": "{{class}}",
+    "alias": "{{classLowercase}}",
+    "keywords": ["{{classLowercase}}"],
+    "active": 1,
+    "order": 1,
+    "providers": [
+        "App\\Modules\\{{class}}\\Providers\\{{class}}ServiceProvider",
+        "App\\Modules\\{{class}}\\Providers\\{{class}}RouteServiceProvider"
+    ],
+    "aliases": {},
+    "files": []
+}

@@ -1,0 +1,27 @@
+{
+    "name": "perverse/kuato",
+    "description": "An opinionated way to build Laravel APIs",
+    "keywords": ["framework", "laravel", "api", "modules"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.6.4",
+        "barryvdh/laravel-cors": "^0.9.3",
+        "bosnadev/repositories": "0.*",
+        "laravel/framework": "5.*",
+        "league/fractal": "^0.16.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MenallyFriendly\\Kuato\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kuato\\Providers\\ModuleServiceProvider",
+                "Kuato\\Providers\\KuatoServiceProvider"
+            ]
+        }
+    }
+}

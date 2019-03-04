@@ -1,0 +1,26 @@
+<?php 
+
+namespace App\Modules\{{module}}\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class {{class}}ServiceProvider extends ServiceProvider
+{
+	/**
+	 * Indicates if loading of the provider is deferred.
+	 *
+	 * @var bool
+	 */
+	protected $defer = false;
+
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+        $this->app->singleton('App\Modules\{{module}}\Contracts\Repositories\{{class}}Repository', 'App\Modules\{{module}}\Repositories\{{class}}EloquentRepository');
+        $this->app->singleton('App\Modules\{{module}}\Contracts\Services\{{class}}ServiceInterface', 'App\Modules\{{module}}\Services\{{class}}Service');
+	}
+}

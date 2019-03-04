@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Modules\{{module}}\Entities;
+
+use Illuminate\Database\Eloquent\Model;
+use Kuato\Traits\TransformableEntityTrait;
+
+/**
+ * @SWG\Definition()
+ */
+
+class {{class}} extends Model
+{
+	use TransformableEntityTrait;
+
+	/**
+	* The database table used by the model.
+	*
+	* @var string
+	*/
+	protected $table = '{{classLowercase}}';
+
+	/**
+	* The attributes that are mass assignable.
+	*
+	* @var array
+	*/
+	protected $fillable = [];
+
+	/**
+	* The attributes that are visible.
+	*
+	* @var array
+	*/
+	protected $visible = ['id'];
+
+	/**
+	* The attributes that should be hidden for arrays.
+	*
+	* @var array
+	*/
+	protected $hidden = [];
+
+	/**
+	* The attributes that are cast as Carbon instances.
+	*
+	* @var array
+	*/
+	protected $dates = ['created_at','updated_at'];
+
+	/**
+     * Unique identifier
+	 * @property id
+     * @var integer
+     *
+     * @SWG\Property(
+     *   property="id"
+     * )
+     */
+
+	 /**
+      * Datetime of when the object was created
+	  * @property created_at
+      * @var datetime
+      *
+      * @SWG\Property(
+      *   property="created_at"
+      * )
+      */
+
+	 /**
+      * Datetime of when the object was last updated
+	  * @property updated_at
+      * @var datetime
+      *
+      * @SWG\Property(
+      *   property="updated_at"
+      * )
+      */
+
+	public function getTransformer()
+	{
+		return app('App\Modules\{{module}}\Transformers\{{class}}Transformer');
+	}
+}

@@ -1,0 +1,57 @@
+<?php 
+
+namespace App\Modules\{{module}}\Contracts\Repositories;
+
+interface {{class}}Repository
+{
+    /**
+     *
+     * @param  array    $columns
+     *
+     * @return collection
+     */
+	public function all($columns = ['*']);
+
+    /**
+     * 
+     * @param array     $params
+     * @param array     $columns
+     *
+     * @return collection
+     */
+    public function paginate($params, $columns = ['*']);
+
+    /**
+     *
+     * @param  int      $id
+     * @param  array    $columns
+     *
+     * @return \App\Modules\{{module}}\Entities\{{class}}
+     */
+	public function find($id, $columns = ['*']);
+
+    /**
+     *
+     * @param  array    $data
+     *
+     * @return \App\Modules\{{module}}\Entities\{{class}}
+     */
+	public function create(array $data);
+
+    /**
+     * 
+     * @param int       $id
+     * @param array     $data
+     *
+     * @return \App\Modules\{{module}}\Entities\{{class}}
+     */
+    public function update(array $data, $id);
+
+    /**
+     * 
+     * @param int     $id
+     *
+     * @return \App\Modules\{{module}}\Entities\{{class}}
+     */
+    public function delete($id);
+}

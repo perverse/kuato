@@ -1,0 +1,76 @@
+<?php
+
+use Faker\Factory as Faker;
+use App\Modules\{{module}}\Entities\{{class}};
+
+class {{class}}Test extends TestCase
+{
+	/** @test */
+	function create_{{classLowercase}}()
+	{
+		$faker = Faker::create();
+
+		$this->json('POST', '/api/{{classLowercasePlural}}', [
+				'name' => $faker->name,
+			])
+			->seeJson([
+				'code' => 200
+			]);
+	}
+
+	/** @test */
+	function read_{{classLowercase}}()
+	{
+		$faker = Faker::create();
+
+		${{classLowercase}} = {{class}}::create([
+			'name' => $faker->name,
+		]);
+
+		$this->json('GET', '/api/{{classLowercasePlural}}/'.${{classLowercase}}->id)
+			->seeJson([
+				'code' => 200
+			]);
+	}
+
+	/** @test */
+	function update_{{classLowercase}}()
+	{
+		$faker = Faker::create();
+
+		${{classLowercase}} = {{class}}::create([
+			'name' => $faker->name,
+		]);
+
+		$this->json('PUT', '/api/{{classLowercasePlural}}/'.${{classLowercase}}->id, [
+				'name' => $faker->name,
+			])
+			->seeJson([
+				'code' => 200
+			]);
+	}
+
+	/** @test */
+	function delete_{{classLowercase}}()
+	{
+		$faker = Faker::create();
+
+		${{classLowercase}} = {{class}}::create([
+			'name' => $faker->name,
+		]);
+
+		$this->json('DELETE', '/api/{{classLowercasePlural}}/'.${{classLowercase}}->id)
+			->seeJson([
+				'code' => 200
+			]);
+	}
+
+	/** @test */
+	function read_{{classLowercasePlural}}()
+	{
+		$this->json('GET', '/api/{{classLowercasePlural}}')
+			->seeJson([
+				'code' => 200,
+			]);
+	}
+}

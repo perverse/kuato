@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Modules\{{module}}\Providers;
+
+use Illuminate\Routing\Router;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+
+class {{class}}RouteServiceProvider extends ServiceProvider
+{
+	/**
+	 * This namespace is applied to the controller routes in your routes file.
+	 *
+	 * In addition, it is set as the URL generator's root namespace.
+	 *
+	 * @var string
+	 */
+	protected $namespace = 'App\Modules\{{module}}\Controllers';
+
+	/**
+	 * Define your route model bindings, pattern filters, etc.
+	 *
+	 * @param  \Illuminate\Routing\Router  $router
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		parent::boot();
+	}
+
+	/**
+	 * Define the routes for the application.
+	 *
+	 * @param  \Illuminate\Routing\Router  $router
+	 *
+	 * @return void
+	 */
+	public function map(Router $router) 
+	{
+		$router->group(['namespace' => $this->namespace, 'prefix' => config('kuato.api_prefix'), 'middleware' => ['kuato.middleware.jsonresponse', 'kuato.middleware.cors']], function(Router $router)
+		{
+			require app_path('Modules/{{module}}/apiroutes.php');
+		});
+
+		$router->group(['namespace' => $this->namespace], function(Router $router)
+		{
+			require app_path('Modules/{{module}}/routes.php');
+		});
+	}
+}

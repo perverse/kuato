@@ -1,0 +1,26 @@
+<?php 
+
+namespace App\Modules\{{module}}\Validators;
+
+use App\Kuato\Validators\Validator;
+
+class {{class}}Validator extends Validator 
+{
+	/**
+	 *
+	 * @return array
+	 */
+	public function rules()
+	{
+		return [];
+	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	public function messages()
+	{
+		return [];
+	}
+}

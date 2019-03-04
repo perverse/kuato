@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Modules\{{module}}\Repositories;
+
+use Kuato\Repositories\KuatoEloquentRepository;
+use App\Modules\{{module}}\Entities\{{class}};
+use App\Modules\{{module}}\Contracts\Repositories\{{class}}Repository;
+
+class {{class}}EloquentRepository extends KuatoEloquentRepository implements {{class}}Repository
+{
+    public function useModel()
+    {
+        return '\App\Modules\{{module}}\Entities\{{class}}';
+    }
+}

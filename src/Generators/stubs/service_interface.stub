@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Modules\{{module}}\Contracts\Services;
+
+interface {{class}}ServiceInterface
+{
+    public function lists(array $input);
+    public function find($id);
+    public function store(array $input);
+    public function update(array $input, $id);
+    public function delete($id);
+}

@@ -1,0 +1,150 @@
+<?php
+
+namespace App\Modules\{{module}}\Services;
+
+use App\Modules\{{module}}\Contracts\Services\{{class}}ServiceInterface;
+use App\Modules\{{module}}\Contracts\Repositories\{{class}}Repository;
+use App\Modules\{{module}}\Repositories\Criteria as {{class}}Criteria;
+use Kuato\Containers\ServiceResponse;
+use Illuminate\Contracts\Validation\Factory as Validator;
+use Kuato\Repositories\Criteria as KuatoCriteria;
+
+class {{class}}Service implements {{class}}ServiceInterface
+{
+    protected ${{classLowercase}}_repo;
+    protected $response;
+    protected $validator;
+
+    public function __construct({{class}}Repository ${{classLowercase}}_repo, ServiceResponse $response, Validator $validator)
+    {
+        $this->{{classLowercase}}_repo = ${{classLowercase}}_repo;
+        $this->response = $response;
+        $this->validator = $validator;
+    }
+
+    public function lists(array $input)
+    {
+        $validation = $this->validator->make($input, [
+            'ids'              => 'array|integerInArray',
+            'page'             => 'integer',
+            'created_at_min'   => 'date_format:"Y-m-d H:i:s"',
+            'created_at_max'   => 'date_format:"Y-m-d H:i:s"',
+            'updated_at_min'   => 'date_format:"Y-m-d H:i:s"',
+            'updated_at_max'   => 'date_format:"Y-m-d H:i:s"',
+            'limit'            => 'integer|min:1|max:250',
+        ]);
+
+        if ($validation->fails()) {
+            return $this->response->make([
+                'success' => false,
+                'error_type' => ServiceResponse::ERROR_TYPE_VALIDATION,
+                'errors' => $validation->errors()->toArray()
+            ]);
+        }
+
+        $search = array_get($input, 'search', null);
+        if ($search !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\SearchForName($search));
+        }
+
+        $ids = array_get($input, 'ids', null);
+        if ($ids !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\IdsIn($ids));
+        }
+
+        $created_min = array_get($input, 'created_at_min', null);
+        if ($created_min !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\CreatedAfter($created_min));
+        }
+
+        $created_max = array_get($input, 'created_at_max', null);
+        if ($created_max !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\CreatedBefore($created_max));
+        }
+
+        $updated_min = array_get($input, 'updated_at_min', null);
+        if ($updated_min !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\UpdatedAfter($updated_min));
+        }
+
+        $updated_max = array_get($input, 'updated_at_max', null);
+        if ($updated_max !== null) {
+            $this->{{classLowercase}}_repo->pushCriteria(new KuatoCriteria\UpdatedBefore($updated_max));
+        }
+
+        ${{classLowercasePlural}} = $this->{{classLowercase}}_repo->paginate(array_get($input, 'limit', 50));
+
+        return $this->response->success([
+            'data' => ${{classLowercasePlural}}
+        ]);
+    }
+
+    public function find($id)
+    {
+        ${{classLowercase}} = $this->{{classLowercase}}_repo->find($id);
+
+        if (${{classLowercase}}) {
+            return $this->response->make([
+                'success' => true,
+                'data' => ${{classLowercase}}
+            ]);
+        } else {
+            return $this->response->make([
+                'success' => false,
+                'error_type' => ServiceResponse::ERROR_TYPE_NOT_FOUND
+            ]);
+        }
+    }
+
+    public function store(array $input)
+    {
+        $validation = $this->validator->make($input, [
+
+        ]);
+
+        if ($validation->fails()) {
+            return $this->response->make([
+                'success' => false,
+                'error_type' => ServiceResponse::ERROR_TYPE_VALIDATION,
+                'errors' => $validation->errors()->toArray()
+            ]);
+        }
+
+        try {
+            return $this->response->success([
+                'data' => $this->{{classLowercase}}_repo->create($input)
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->error([
+                'errors' => [$e->getMessage()]
+            ]);
+        }
+    }
+
+    public function update(array $input, $id) {
+        $validation = $this->validator->make($input, [
+
+        ]);
+
+        if ($validation->fails()) {
+            return $this->response->make([
+                'success' => false,
+                'error_type' => ServiceResponse::ERROR_TYPE_VALIDATION,
+                'errors' => $validation->errors()->toArray()
+            ]);
+        }
+
+        if ($this->{{classLowercase}}_repo->update($input, $id)) {
+            return $this->response->success();
+        } else {
+            return $this->response->error([
+                'error_type' => ServiceResponse::ERROR_TYPE_NOT_FOUND
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        return $this->response->make(['success' => $this->{{classLowercase}}_repo->delete($id) ? true : false]);
+    }
+}

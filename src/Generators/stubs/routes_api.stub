@@ -1,0 +1,91 @@
+<?php 
+/*
+ *
+ * {{class}} Module API Routes
+ *
+ */
+
+/**
+ * @SWG\Get(
+ *   path="/{{classLowercase}}",
+ *   summary="list {{classLowercasePlural}}",
+ *   tags={"{{classLowercase}}"},
+ *   @SWG\Response(
+ *     response=200,
+ *     description="A list with {{classLowercasePlural}}"
+ *   ),
+ *   @SWG\Response(
+ *     response="default",
+ *     description="an ""unexpected"" error"
+ *   )
+ * )
+ */
+$router->get('{{classLowercase}}', ['as' => '{{classLowercase}}.index', 'uses' => '{{class}}Controller@index']);
+
+/**
+ * @SWG\Post(
+ *   path="/{{classLowercase}}",
+ *   summary="create a {{classLowercase}}",
+ *   tags={"{{classLowercase}}"},
+ *   @SWG\Response(
+ *     response=200,
+ *     description="{{classLowercase}} created successfully and returned"
+ *   ),
+ *   @SWG\Response(
+ *     response="default",
+ *     description="an ""unexpected"" error"
+ *   )
+ * )
+ */
+$router->post('{{classLowercase}}', ['as' => '{{classLowercase}}.store', 'uses' => '{{class}}Controller@store']);
+
+/**
+ * @SWG\Get(
+ *   path="/{{classLowercase}}/{{{classLowercase}}_id}",
+ *   summary="get a {{classLowercase}} identified by {{classLowercase}}_id",
+ *   tags={"{{classLowercase}}"},
+ *   @SWG\Response(
+ *     response=200,
+ *     description="{{classLowercase}} successfully returned"
+ *   ),
+ *   @SWG\Response(
+ *     response="default",
+ *     description="an ""unexpected"" error"
+ *   )
+ * )
+ */
+$router->get('{{classLowercase}}/{id}', ['as' => '{{classLowercase}}.show', 'uses' => '{{class}}Controller@show']);
+
+/**
+ * @SWG\Put(
+ *   path="/{{classLowercase}}/{{{classLowercase}}_id}",
+ *   summary="update a {{classLowercase}} identified by {{classLowercase}}_id",
+ *   tags={"{{classLowercase}}"},
+ *   @SWG\Response(
+ *     response=200,
+ *     description="{{classLowercase}} successfully updated"
+ *   ),
+ *   @SWG\Response(
+ *     response="default",
+ *     description="an ""unexpected"" error"
+ *   )
+ * )
+ */
+$router->put('{{classLowercase}}/{id}', ['as' => '{{classLowercase}}.update', 'uses' => '{{class}}Controller@update']);
+
+/**
+ * @SWG\Delete(
+ *   path="/{{classLowercase}}/{{{classLowercase}}_id}",
+ *   summary="delete a {{classLowercase}} identified by {{classLowercase}}_id",
+ *   tags={"{{classLowercase}}"},
+ *   @SWG\Response(
+ *     response=200,
+ *     description="{{classLowercase}} successfully destroyed"
+ *   ),
+ *   @SWG\Response(
+ *     response="default",
+ *     description="an ""unexpected"" error"
+ *   )
+ * )
+ */
+$router->delete('{{classLowercase}}/{id}', ['as' => '{{classLowercase}}.delete', 'uses' => '{{class}}Controller@delete']);
